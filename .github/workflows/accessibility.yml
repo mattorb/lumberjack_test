@@ -2,27 +2,10 @@ name: Accessibility Audits
 
 on: [push]
 jobs:
-  build:
-    runs-on: ubuntu-18.04
-
+  security:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Install required Linux packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install libgbm-dev
-          sudo apt-get install xvfb
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - name: Accessibility Scan
+        uses: mattorb/lumberjack@github-action
         with:
-          node-version: 12.x
-      - name: Install npm packages
-        run: |
-          npm ci
-      - name: Build
-        run: |
-          npm run build
-      - name: Accessibility Audits
-        run: |
-          npm install -g @jakepartusch/lumberjack
-          xvfb-run --auto-servernum lumberjack --url https://mattorb.com
+          url: "https://mattorb.com"
